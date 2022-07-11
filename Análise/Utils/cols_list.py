@@ -1,0 +1,58 @@
+cols_censo = [
+    'NU_ANO_CENSO',
+    'SG_UF',
+    'CO_MUNICIPIO',
+    'NO_MUNICIPIO',
+    'CO_ENTIDADE',
+    'TP_DEPENDENCIA',
+    'TP_LOCALIZACAO',
+    'TP_SITUACAO_FUNCIONAMENTO',
+    'IN_AGUA_POTAVEL',
+    'IN_ENERGIA_INEXISTENTE',
+    'IN_ESGOTO_INEXISTENTE',
+    'IN_AREA_VERDE',
+    'IN_BANHEIRO',
+    'IN_LIXO_INEXISTENTE',
+    'IN_BIBLIOTECA',
+    'IN_LABORATORIO_INFORMATICA',
+    'IN_INTERNET',
+    'IN_INTERNET_APRENDIZAGEM',
+    'IN_INTERNET_ADMINISTRATIVO',
+    'IN_INTERNET_COMUNIDADE',
+    'IN_ACESSO_INTERNET_COMPUTADOR',
+    'IN_ACES_INTERNET_DISP_PESSOAIS',
+    'TP_REDE_LOCAL',
+    'IN_BANDA_LARGA',
+    'IN_EXAME_SELECAO',
+    'QTD_DOC_MED'
+]
+
+cols_enem_dict = {
+    'TP_COR_RACA':int,
+    'TP_SEXO':'string',
+    'TP_FAIXA_ETARIA':int,
+    'TP_ESTADO_CIVIL':int,
+    'TP_ST_CONCLUSAO':int,
+    'TP_ESCOLA':int,
+    'IN_TREINEIRO':int,
+    'CO_MUNICIPIO_ESC':'Sparse[int]',
+    'NO_MUNICIPIO_ESC':'string',
+    'SG_UF_ESC':'string',
+    'TP_DEPENDENCIA_ADM_ESC':int,
+    'TP_LOCALIZACAO_ESC':int,
+    'TP_SIT_FUNC_ESC':int,
+    'NU_NOTA_CN':'Sparse[float]',
+    'NU_NOTA_CH':'Sparse[float]',
+    'NU_NOTA_LC':'Sparse[float]',
+    'NU_NOTA_MT':'Sparse[float]',
+    'TP_STATUS_REDACAO':int,
+    'NU_NOTA_COMP1':'Sparse[int]',
+    'NU_NOTA_COMP2':'Sparse[int]',
+    'NU_NOTA_COMP3':'Sparse[int]',
+    'NU_NOTA_COMP4':'Sparse[int]',
+    'NU_NOTA_COMP5':'Sparse[int]',
+    'NU_NOTA_REDACAO':'Sparse[int]'
+            }
+            
+cols_enem = list(cols_enem_dict.keys()) 
+
