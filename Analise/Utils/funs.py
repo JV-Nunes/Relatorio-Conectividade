@@ -46,6 +46,11 @@ def filter_enem(df):
     print('Taxa de filtragem: ', (pre_filter-post_filter)/pre_filter)
     return df
 
+def clean_dataset(df):
+    assert isinstance(df, pd.DataFrame), "df needs to be a pd.DataFrame"
+    df.dropna(inplace=True)
+    indices_to_keep = ~df.isin([np.inf, -np.inf]).any(1)
+    return df[indices_to_keep].astype(np.float64)
 
 def load_trienio_enem(cols):
     enem19 = filter_enem(dask_load_year_enem(2019, cols))
