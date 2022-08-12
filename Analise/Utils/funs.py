@@ -1,5 +1,6 @@
 import dask.dataframe as dd
 import pandas as pd
+import numpy as np
 
 def get_medium_score(df):
     ling = df['NU_NOTA_LC']
