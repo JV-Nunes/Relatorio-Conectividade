@@ -1,5 +1,7 @@
-Dados
+/Dados/*
+!/Dados/Auxiliares
 Análise/Schema/dask-worker-space/
 .vscode
 Analise/Utils/GEO/*
 Resultados/Agg/ENEM/collab/
+/Literatura/

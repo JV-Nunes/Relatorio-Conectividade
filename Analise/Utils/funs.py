@@ -29,15 +29,18 @@ def dask_load_year_enem(year, cols):
     return enem
 
 
-def filter_enem(df):
+def filter_enem(df, concluinte=False):
     pre_filter = len(df)
     print('Tamanho do dataset pré-filtragem: ', pre_filter)
 
     # Aplicando filtragem dos dados
     df = df[df['IN_TREINEIRO']==0] # Não é treineiro
     df = df[df['TP_ENSINO']==1] # Ensino Regular
-    df = df[df['TP_ST_CONCLUSAO']!=4] # Está cursando ensino médio ou já cursou
-    df = df[df['TP_ANO_CONCLUIU']<=1] # Está cursando ou concluiu o ensino médio até 2018
+    if concluinte:
+        df = df[df['TP_ST_CONCLUSAO']==2] # Concluinte
+    else:
+        df = df[df['TP_ST_CONCLUSAO']!=4] # Está cursando ensino médio ou já cursou
+    df = df[df['TP_ANO_CONCLUIU']<=1] # Está cursando ou concluiu o ensino médio até um ano antes da prova
     df = df[df['TP_NACIONALIDADE']==1] # Brasileiro
 
     # Removendo colunas pós filtragem
