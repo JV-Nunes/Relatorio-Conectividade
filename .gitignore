@@ -4,4 +4,5 @@ Análise/Schema/dask-worker-space/
 .vscode
 Analise/Utils/GEO/*
 Resultados/Agg/ENEM/collab/
+Resultados/Agg/ENEM/aux/dados_para_modelagem.parquet
 /Literatura/
