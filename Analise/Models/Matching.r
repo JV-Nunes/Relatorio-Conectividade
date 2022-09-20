@@ -8,7 +8,7 @@ options(scipen = 100, digits=4)
 ## Adicionando diretório ao path
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-df <- read_parquet("../../Resultados/Agg/ENEM/aux/dados_para_matching.parquet")
+df <- read_parquet("../../Resultados/Agg/ENEM/aux/dados_para_matching.parquet") %>% select()
 
 colnames(df)
 
@@ -16,4 +16,8 @@ matching <- matchit(treated ~ NU_ANO + TP_COR_RACA + Q005 + Q025 + TP_FAIXA_ETAR
                     data = df,
                     method = 'cem', estimand = 'ATE'
                     )
-is.na(df[NU_ANO])
+
+summary(matching, un = FALSE)
+
+matched_df <- match.data(matching) %>% arrange(subclass, treated)
+
