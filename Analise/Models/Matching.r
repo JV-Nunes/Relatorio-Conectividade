@@ -10,32 +10,26 @@ options(scipen = 100, digits=4)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # Funcoes
-match_year <- function(dataframe, year, states, all_states){
+match_year <- function(dataframe, year, states, formula, pre_split){
   # Selecionando apenas o ano da iteracao para fatorar a computação necessária
   df <- filter(dataframe, NU_ANO == year)
-  # Selecionando observações de estados nordestinos
+  # Selecionando observações de estados de interesse
   df <- filter(df, SG_UF_ESC %in% states)
-  # Filtrando da seguinte forma:
-  # Grupo Tratado - observações de estados que receberam o programa de distribuição de chips 
-  # e que tem Q025 = 1
-  # Grupo Controle - Todas as outras observações com Q025 = 0. O matching terá como objetivo aproximar
-  # os indivíduos de modo a observar apenas o efeito da distribuição do chip
+  df <- transform(df, treated = as.numeric(treated))
   
-  treated <- subset(df, treated == 1 & Q025 == 1)
-  # Selecionando grupo de controle com diferentes estados ou apenas o estado de tratamento dependendo da flag.
-  if (all_states == TRUE){
+  # Separando previamente em grupo de controle e tratamento (para estrato à nível individual)
+  if (pre_split == TRUE){
+    treated <- subset(df, treated == 1 & Q025 == 1)
     control <- subset(df, treated == 0 & Q025 == 0)
+    experiment <- rbind(treated, control) 
   } else {
-    control <- subset(df, Q025 == 0)
+    experiment <- df
   }
-  experiment <- rbind(treated, control) 
   # Executando o matching com Coarsened Exact Matching
-  matching <- matchit(Q025 ~ Q005 + TP_FAIXA_ETARIA +  Q006 + IND_CASA + MULHER + Q001 + Q022 + TP_ESTADO_CIVIL + NAO_BRANCO,
-                      data = experiment,
-                      method = "cem", estimand = "ATE"
-  )
+  matching <- matchit( formula, data = experiment, method = "cem", estimand = "ATE" )
+  
   summ <- summary(matching, un = FALSE)
-  matched_df <- match.data(matching) %>% arrange(subclass, Q025)
+  matched_df <- match.data(matching) %>% arrange(subclass, treated)
   # Retornando dataframe com match
   retorna <- list("match" = matched_df, "summary" = summ )
   return (retorna)
@@ -51,18 +45,24 @@ do_regression <- function(dataframe, formula){
 }
 
 # Script
-df <- read_parquet("../../Resultados/Agg/ENEM/aux/dados_para_matching.parquet")
+df <- read_parquet("../../Resultados/Agg/ENEM/aux/dados_para_matching-municipal.parquet")
+df <- transform(df, NU_ANO = as.integer(NU_ANO))
 
+states = c("MA", "PI", "RN", "PB", "PE", "AL", "SE", "PA", "CE")
+# Definindo covariaveis para o matching
+formula_match = treated ~ Q006  + MULHER + NAO_BRANCO + indice_gini + idhm_e + idhm_r + expectativa_anos_estudo
+
+formula_reg = NU_NOTA_MT ~ treated + MULHER + IND_CASA + TP_FAIXA_ETARIA + NAO_BRANCO + Q006
+print(cat("Quantidade de linhas no dataframe inicial", nrow(df)))
 for (ano in 2018:2021){
   print(sprintf("Executando para %s", ano))
-  states = c("CE")
-  matched_obj <- match_year(df, ano, states, all_states = FALSE)
+  matched_obj <- match_year(df, ano, states, formula_match, FALSE)
 
   print("Matching executado. Salvando dataframe.")
-  file <- sprintf("../../Resultados/Agg/ENEM/aux/postMatching/data-%s.parquet", ano)
+  file <- sprintf("../../Resultados/Agg/ENEM/aux/postMatching/data-municipal-%s.parquet", ano)
   write_parquet( matched_obj$match, file )
   
-  formula <- NU_NOTA_MT ~ Q025 + MULHER + IND_CASA + TP_FAIXA_ETARIA + NAO_BRANCO + Q006
+
   output <- do_regression(matched_obj$match, formula)
   print(output$summary)
 
@@ -74,8 +74,5 @@ for (ano in 2018:2021){
   sink(file = NULL)
 }
 
-## Tests
-
-c("MA", "PI", "RN", "PB", "PE", "AL", "SE", "PA", "CE")
 
 
