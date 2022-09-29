@@ -48,30 +48,25 @@ do_regression <- function(dataframe, formula){
 df <- read_parquet("../../Resultados/Agg/ENEM/aux/dados_para_matching-municipal.parquet")
 df <- transform(df, NU_ANO = as.integer(NU_ANO))
 
-states = c("MA", "PI", "RN", "PB", "PE", "AL", "SE", "PA", "CE")
+states = c("MA", "PI", "RN", "AL", "SE", "PA", "CE", "AM", "TO")
 # Definindo covariaveis para o matching
-formula_match = treated ~ Q006  + MULHER + NAO_BRANCO + indice_gini + idhm_e + idhm_r + expectativa_anos_estudo
+formula_match = treated ~  indice_gini + idhm_e + idhm_r + expectativa_anos_estudo + NT_MEDIA + taxa_analfabetismo_15_a_17
+formula_reg = NT_MEDIA ~ treated
 
-formula_reg = NU_NOTA_MT ~ treated + MULHER + IND_CASA + TP_FAIXA_ETARIA + NAO_BRANCO + Q006
 print(cat("Quantidade de linhas no dataframe inicial", nrow(df)))
-for (ano in 2018:2021){
+for (ano in 2018:2018){
   print(sprintf("Executando para %s", ano))
   matched_obj <- match_year(df, ano, states, formula_match, FALSE)
 
   print("Matching executado. Salvando dataframe.")
-  file <- sprintf("../../Resultados/Agg/ENEM/aux/postMatching/data-municipal-%s.parquet", ano)
+  file <- "../../Resultados/Agg/ENEM/aux/postMatching/municipios-idh_NOTA.parquet"
   write_parquet( matched_obj$match, file )
   
 
   output <- do_regression(matched_obj$match, formula)
+  print(matched_obj$summary)
   print(output$summary)
 
-  #Criando arquivo com todos os sumários
-  file <- sprintf("Summary/resultados-%s.txt", ano)
-  sink(file = file)
-  matched_obj$summary
-  output$summary
-  sink(file = NULL)
 }
 
 
