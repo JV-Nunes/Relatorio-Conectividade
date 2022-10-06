@@ -53,14 +53,14 @@ df = df  %>%
       transform(Q025 = as.numeric(Q025)) %>% 
       transform( NU_ANO = as.integer(NU_ANO)) %>% 
       #filter(ESCOLA_PUBLICA == 1 )
-      mutate(COMPUTADOR = if_else(Q024 == 0, 0, 1))
+      mutate(CELULAR = if_else(Q022 == 0, 0, 1))
              
 states = c("MA", "PI", "RN", "AL", "SE", "PA", "CE", "AM", "TO")
 # Definindo covariaveis para o matching
 #formula_match = treated ~  indice_gini + idhm_e + idhm_r + expectativa_anos_estudo + NT_MEDIA + taxa_analfabetismo_15_a_17
-formula_match = COMPUTADOR ~ TP_FAIXA_ETARIA + Q001 + Q002 + Q005 + Q006 + IND_CASA + NAO_BRANCO + MULHER + SOLTEIRO 
+formula_match = CELULAR ~ TP_FAIXA_ETARIA + Q001 + Q002 + Q005 + Q006 + IND_CASA + NAO_BRANCO + MULHER + SOLTEIRO 
 #formula_reg = NT_MEDIA ~ treated
-formula_reg = LOG_NT_MEDIA ~ COMPUTADOR
+formula_reg = LOG_NT_MEDIA ~ CELULAR
 
 print(cat("Quantidade de linhas no dataframe inicial", nrow(df)))
 for (ano in 2020:2021){
@@ -68,7 +68,7 @@ for (ano in 2020:2021){
   matched_obj <- match_year(df, ano, states, formula_match, FALSE, FALSE)
 
   print("Matching executado. Salvando dataframe.")
-  file <- sprintf("../../Resultados/Agg/ENEM/aux/postMatching/individuo-Q024-%s.parquet", ano)
+  file <- sprintf("../../Resultados/Agg/ENEM/aux/postMatching/individuo-Q022-%s.parquet", ano)
   write_parquet( matched_obj$match, file )
   
 

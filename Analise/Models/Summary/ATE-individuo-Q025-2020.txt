@@ -1,25 +1,25 @@
 REGRESSÃO PARA 2020
                             WLS Regression Results                            
 ==============================================================================
-Dep. Variable:           LOG_NT_MEDIA   R-squared:                       0.006
+Dep. Variable:               NT_MEDIA   R-squared:                       0.006
 Model:                            WLS   Adj. R-squared:                  0.006
-Method:                 Least Squares   F-statistic:                     2041.
-Date:                Wed, 05 Oct 2022   Prob (F-statistic):               0.00
-Time:                        19:20:00   Log-Likelihood:             2.7178e+05
-No. Observations:              694655   AIC:                        -5.436e+05
-Df Residuals:                  694653   BIC:                        -5.435e+05
+Method:                 Least Squares   F-statistic:                     2084.
+Date:                Thu, 06 Oct 2022   Prob (F-statistic):               0.00
+Time:                        18:30:33   Log-Likelihood:            -4.0368e+06
+No. Observations:              694655   AIC:                         8.074e+06
+Df Residuals:                  694653   BIC:                         8.074e+06
 Df Model:                           1                                         
 Covariance Type:              cluster                                         
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
-const          6.1782      0.001   8517.685      0.000       6.177       6.180
-Q025           0.0280      0.001     45.178      0.000       0.027       0.029
+const        487.7821      0.356   1370.195      0.000     487.084     488.480
+Q025          14.0060      0.307     45.649      0.000      13.405      14.607
 ==============================================================================
-Omnibus:                    37536.985   Durbin-Watson:                   1.757
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):           118527.491
-Skew:                          -0.230   Prob(JB):                         0.00
-Kurtosis:                       4.971   Cond. No.                         3.75
+Omnibus:                    35582.678   Durbin-Watson:                   1.752
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):            86772.708
+Skew:                           0.308   Prob(JB):                         0.00
+Kurtosis:                       4.618   Cond. No.                         3.75
 ==============================================================================
 
 Notes:
