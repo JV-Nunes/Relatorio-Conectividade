@@ -1,0 +1,55 @@
+[1] "Executando para 2020"
+[1] "Matching executado. Salvando dataframe."
+
+Call:
+matchit(formula = formula, data = experiment, method = "cem", 
+    estimand = "ATE")
+
+Summary of Balance for Matched Data:
+                Means Treated Means Control Std. Mean Diff. Var. Ratio
+TP_FAIXA_ETARIA         2.644         2.644           0.000      1.000
+Q001                    3.336         3.336           0.000      1.000
+Q002                    4.067         4.067           0.000      1.000
+Q005                    3.928         3.928           0.000      1.000
+Q006                    1.771         1.771           0.000      1.000
+IND_CASA                6.308         6.254           0.023      0.998
+NAO_BRANCO              0.705         0.705           0.000          .
+MULHER                  0.664         0.664           0.000          .
+SOLTEIRO                0.999         0.999           0.000          .
+                eCDF Mean eCDF Max Std. Pair Dist.
+TP_FAIXA_ETARIA     0.000    0.000             0.0
+Q001                0.000    0.000             0.0
+Q002                0.000    0.000             0.0
+Q005                0.000    0.000             0.0
+Q006                0.000    0.000             0.0
+IND_CASA            0.002    0.045             0.1
+NAO_BRANCO          0.000    0.000             0.0
+MULHER              0.000    0.000             0.0
+SOLTEIRO            0.000    0.000             0.0
+
+Sample Sizes:
+              Control Treated
+All            102384  502077
+Matched (ESS)   32688  223402
+Matched         87261  252816
+Unmatched       15123  249261
+Discarded           0       0
+
+
+Call:
+lm(formula = formula, data = dataframe, weights = weights)
+
+Weighted Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.4118 -0.0943  0.0008  0.1013  1.4385 
+
+Coefficients:
+            Estimate Std. Error t value            Pr(>|t|)    
+(Intercept) 6.175713   0.000524 11785.8 <0.0000000000000002 ***
+Q025        0.028151   0.000608    46.3 <0.0000000000000002 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.155 on 340075 degrees of freedom
+Multiple R-squared:  0.00627,	Adjusted R-squared:  0.00627 
+F-statistic: 2.15e+03 on 1 and 340075 DF,  p-value: <0.0000000000000002

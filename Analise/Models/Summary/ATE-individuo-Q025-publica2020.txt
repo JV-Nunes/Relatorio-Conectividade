@@ -1,0 +1,26 @@
+REGRESSÃO PARA 2020
+                            WLS Regression Results                            
+==============================================================================
+Dep. Variable:           LOG_NT_MEDIA   R-squared:                       0.006
+Model:                            WLS   Adj. R-squared:                  0.006
+Method:                 Least Squares   F-statistic:                     1026.
+Date:                Wed, 05 Oct 2022   Prob (F-statistic):          5.41e-220
+Time:                        19:20:15   Log-Likelihood:             1.3475e+05
+No. Observations:              339997   AIC:                        -2.695e+05
+Df Residuals:                  339995   BIC:                        -2.695e+05
+Df Model:                           1                                         
+Covariance Type:              cluster                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          6.1758      0.001   6119.816      0.000       6.174       6.178
+Q025           0.0281      0.001     32.037      0.000       0.026       0.030
+==============================================================================
+Omnibus:                    18775.980   Durbin-Watson:                   1.773
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):            59361.423
+Skew:                          -0.239   Prob(JB):                         0.00
+Kurtosis:                       4.990   Cond. No.                         3.72
+==============================================================================
+
+Notes:
+[1] Standard Errors are robust to cluster correlation (cluster)

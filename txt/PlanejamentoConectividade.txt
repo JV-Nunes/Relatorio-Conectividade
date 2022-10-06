@@ -1,0 +1,15 @@
+3 níveis de robustez:
+
+Correlação e peso:
+-Evolução em regressões lineares de cortes anuais à nível individual
+-Reg Quanti dos anos pandemicos 
+
+Avarage Treatment Effect:
+-Cálculo de ATE por meio de Coarsened Exact Matching (nível individual)
+
+Quasi-Experiment:
+-DiD com todos os municípios
+-Did com municípios de fronteira
+-RDD com municípios fronteiriços
+
+
